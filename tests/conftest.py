@@ -13,9 +13,9 @@ import pytest
 from fastmcp import Client
 from piazza_api.exceptions import RequestError
 
-from mcp_piazza.client import PiazzaClient
-from mcp_piazza.config import Settings
-from mcp_piazza.server import build_server
+from piazza_mcp.client import PiazzaClient
+from piazza_mcp.config import Settings
+from piazza_mcp.server import build_server
 
 STATUS = {
     "id": "me",

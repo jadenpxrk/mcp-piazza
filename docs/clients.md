@@ -1,7 +1,7 @@
 # Client setup
 
-mcp-piazza works with every MCP client that supports local stdio servers.
-The server command is `uvx` with the argument `mcp-piazza`.
+piazza-mcp works with every MCP client that supports local stdio servers.
+The server command is `uvx` with the argument `piazza-mcp`.
 You do not need credentials in the configuration. If the server has no session, the first tool call opens a login page.
 
 If the client shows `spawn uvx ENOENT` or "command not found", use the full path to `uvx` in `command`.
@@ -10,11 +10,11 @@ Run `which uvx` (macOS, Linux) or `where uvx` (Windows) to find it.
 ## Clients with an add command
 
 ```bash
-claude mcp add --scope user --transport stdio piazza -- uvx mcp-piazza       # Claude Code
-codex mcp add piazza -- uvx mcp-piazza                                       # Codex CLI
-gemini mcp add -s user piazza uvx mcp-piazza                                 # Gemini CLI
-devin mcp add -s user piazza -- uvx mcp-piazza                               # Windsurf (Devin Local)
-code --add-mcp '{"name":"piazza","command":"uvx","args":["mcp-piazza"]}'     # VS Code
+claude mcp add --scope user --transport stdio piazza -- uvx piazza-mcp       # Claude Code
+codex mcp add piazza -- uvx piazza-mcp                                       # Codex CLI
+gemini mcp add -s user piazza uvx piazza-mcp                                 # Gemini CLI
+devin mcp add -s user piazza -- uvx piazza-mcp                               # Windsurf (Devin Local)
+code --add-mcp '{"name":"piazza","command":"uvx","args":["piazza-mcp"]}'     # VS Code
 ```
 
 ## Clients with an `mcpServers` file
@@ -26,7 +26,7 @@ Add this entry to the file in the table:
   "mcpServers": {
     "piazza": {
       "command": "uvx",
-      "args": ["mcp-piazza"],
+      "args": ["piazza-mcp"],
       "env": {}
     }
   }
@@ -35,7 +35,7 @@ Add this entry to the file in the table:
 
 | Client | File | Notes |
 |---|---|---|
-| Claude Desktop | macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`. Windows: `%APPDATA%\Claude\claude_desktop_config.json`. | Use the full path to `uvx`. Restart the app after the change. You can also install `mcp-piazza.mcpb` from the [latest release](https://github.com/jadenpxrk/mcp-piazza/releases/latest). |
+| Claude Desktop | macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`. Windows: `%APPDATA%\Claude\claude_desktop_config.json`. | Use the full path to `uvx`. Restart the app after the change. You can also install `piazza-mcp.mcpb` from the [latest release](https://github.com/jadenpxrk/piazza-mcp/releases/latest). |
 | Cursor | `~/.cursor/mcp.json`, or `.cursor/mcp.json` in a project | |
 | Windsurf | `~/.config/devin/mcp_config.json` (Devin Local), or `~/.codeium/windsurf/mcp_config.json` (Cascade) | |
 | Cline | MCP Servers > Configure > Configure MCP Servers | To skip approval prompts, add tool names to `autoApprove`. |
@@ -48,13 +48,13 @@ Add this entry to the file in the table:
 VS Code (`.vscode/mcp.json`, or "MCP: Open User Configuration") uses the key `servers`:
 
 ```json
-{ "servers": { "piazza": { "type": "stdio", "command": "uvx", "args": ["mcp-piazza"] } } }
+{ "servers": { "piazza": { "type": "stdio", "command": "uvx", "args": ["piazza-mcp"] } } }
 ```
 
 Zed (`~/.config/zed/settings.json`) uses the key `context_servers`:
 
 ```json
-{ "context_servers": { "piazza": { "command": "uvx", "args": ["mcp-piazza"], "env": {} } } }
+{ "context_servers": { "piazza": { "command": "uvx", "args": ["piazza-mcp"], "env": {} } } }
 ```
 
 Codex CLI (`~/.codex/config.toml`). The first `uvx` run downloads the package, so increase the start timeout:
@@ -62,14 +62,14 @@ Codex CLI (`~/.codex/config.toml`). The first `uvx` run downloads the package, s
 ```toml
 [mcp_servers.piazza]
 command = "uvx"
-args = ["mcp-piazza"]
+args = ["piazza-mcp"]
 startup_timeout_sec = 60
 ```
 
 opencode (`~/.config/opencode/opencode.json`, or `opencode.json` in a project):
 
 ```json
-{ "mcp": { "piazza": { "type": "local", "command": ["uvx", "mcp-piazza"], "enabled": true, "environment": {} } } }
+{ "mcp": { "piazza": { "type": "local", "command": ["uvx", "piazza-mcp"], "enabled": true, "environment": {} } } }
 ```
 
 Goose (`~/.config/goose/config.yaml`), or run `goose configure` and add a command-line extension:
@@ -80,7 +80,7 @@ extensions:
     name: piazza
     type: stdio
     cmd: uvx
-    args: [mcp-piazza]
+    args: [piazza-mcp]
     enabled: true
     timeout: 300
 ```
@@ -95,13 +95,13 @@ mcpServers:
   - name: piazza
     type: stdio
     command: uvx
-    args: [mcp-piazza]
+    args: [piazza-mcp]
 ```
 
 ## Options
 
 Put options in the `env` block of the server entry, for example `"env": {"PIAZZA_KEEP_UNREAD": "true"}`.
-In Claude Code, use `--env`: `claude mcp add --env PIAZZA_KEEP_UNREAD=true --transport stdio piazza -- uvx mcp-piazza`.
+In Claude Code, use `--env`: `claude mcp add --env PIAZZA_KEEP_UNREAD=true --transport stdio piazza -- uvx piazza-mcp`.
 Some clients do not pass your shell variables to the server, so always use the `env` block.
 See [configuration.md](configuration.md) for all options.
 
@@ -110,7 +110,7 @@ See [configuration.md](configuration.md) for all options.
 Start the server with the streamable HTTP transport, then connect the client to `http://127.0.0.1:8000/mcp`:
 
 ```bash
-uvx mcp-piazza serve --transport http --port 8000
+uvx piazza-mcp serve --transport http --port 8000
 ```
 
 The HTTP server has no authentication. Keep the default host `127.0.0.1`, so that only your computer can connect.

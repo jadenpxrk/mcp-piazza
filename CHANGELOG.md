@@ -17,12 +17,12 @@ The project uses [Semantic Versioning](https://semver.org/).
 - Post summaries with `instructor_endorsed`, `likes`, `stars`, and `starred`, so that the assistant can put important posts first.
 - Optional `PIAZZA_KEEP_UNREAD`, which marks posts unread again after the server reads them.
 - HTML to markdown-style text, with code blocks, tables, lists, headings, and quotes.
-- Local login page. `mcp-piazza login` opens it, and a tool call without a session opens it and returns its link.
-- Browser session import with `mcp-piazza login --browser` for Chrome, Arc, Brave, Edge, Firefox, Safari, Chromium, Vivaldi, and Opera.
-- Terminal login with `mcp-piazza login --password` and `mcp-piazza login --cookie`, and `mcp-piazza logout`.
+- Local login page. `piazza-mcp login` opens it, and a tool call without a session opens it and returns its link.
+- Browser session import with `piazza-mcp login --browser` for Chrome, Arc, Brave, Edge, Firefox, Safari, Chromium, Vivaldi, and Opera.
+- Terminal login with `piazza-mcp login --password` and `piazza-mcp login --cookie`, and `piazza-mcp logout`.
 - Automatic login again when a session expires, if `PIAZZA_EMAIL` and `PIAZZA_PASSWORD` are set.
 - Request throttle (`PIAZZA_MIN_INTERVAL`) and in-memory cache (`PIAZZA_CACHE_TTL`).
-- Streamable HTTP transport with `mcp-piazza serve --transport http`.
+- Streamable HTTP transport with `piazza-mcp serve --transport http`.
 - Untrusted-text fencing for post text, on by default.
 - Optional student pseudonyms with `PIAZZA_ANONYMIZE_STUDENTS`.
 - Setup guide for MCP clients.

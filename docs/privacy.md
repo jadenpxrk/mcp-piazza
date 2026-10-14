@@ -68,7 +68,7 @@ It does not open links to other sites. Thus, a post cannot use the tool to send 
 
 ## HTTP transport
 
-`mcp-piazza serve --transport http` has no authentication.
+`piazza-mcp serve --transport http` has no authentication.
 It listens on `127.0.0.1` by default, so only programs on your computer can connect.
 Do not expose it to a network.
 
@@ -77,7 +77,7 @@ Do not expose it to a network.
 - All login methods save only session cookies. They do not save your password.
 - The session file has file mode `600`, so only your user account can read it.
 - If you set `PIAZZA_PASSWORD`, the password is in your MCP client configuration. Keep that file private.
-- `mcp-piazza logout` deletes the session file.
+- `piazza-mcp logout` deletes the session file.
 - The server writes logs only to stderr. Logs do not contain passwords or cookies.
 
 ## Reporting a problem

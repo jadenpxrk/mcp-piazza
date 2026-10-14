@@ -3,8 +3,8 @@
 ## Report a problem
 
 Do not open a public issue for a security problem.
-Use [GitHub private vulnerability reporting](https://github.com/jadenpxrk/mcp-piazza/security/advisories/new).
-Include the steps to cause the problem and the version of mcp-piazza.
+Use [GitHub private vulnerability reporting](https://github.com/jadenpxrk/piazza-mcp/security/advisories/new).
+Include the steps to cause the problem and the version of piazza-mcp.
 
 ## Scope
 

@@ -9,9 +9,9 @@ from typing import Any
 import pytest
 from fastmcp.exceptions import ToolError
 
-from mcp_piazza.client import PiazzaClient
-from mcp_piazza.config import Settings
-from mcp_piazza.login import LoginPage, browser_login
+from piazza_mcp.client import PiazzaClient
+from piazza_mcp.config import Settings
+from piazza_mcp.login import LoginPage, browser_login
 
 
 class Cookie:

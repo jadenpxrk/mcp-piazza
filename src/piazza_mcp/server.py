@@ -1,4 +1,4 @@
-"""Server entry point and the mcp-piazza command line."""
+"""Server entry point and the piazza-mcp command line."""
 
 import argparse
 import getpass
@@ -38,7 +38,7 @@ def build_server(client: PiazzaClient) -> FastMCP:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(prog="mcp-piazza", description="Read-only MCP server for Piazza.")
+    parser = argparse.ArgumentParser(prog="piazza-mcp", description="Read-only MCP server for Piazza.")
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="command")
     serve = sub.add_parser("serve", help="Run the MCP server. This is the default.")

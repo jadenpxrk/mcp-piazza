@@ -17,10 +17,10 @@ from piazza_api.rpc import PiazzaRPC
 
 from .config import Settings
 
-log = logging.getLogger("mcp_piazza")
+log = logging.getLogger("piazza_mcp")
 T = TypeVar("T")
 
-LOGIN_CMD = "mcp-piazza login"
+LOGIN_CMD = "piazza-mcp login"
 FULL_FEED = 999_999  # Piazza returns the whole feed for a large limit, in one request
 RETRY_DELAY = 1.0
 

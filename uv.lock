@@ -1096,40 +1096,6 @@ wheels = [
 ]
 
 [[package]]
-name = "mcp-piazza"
-source = { editable = "." }
-dependencies = [
-    { name = "browser-cookie3" },
-    { name = "fastmcp" },
-    { name = "piazza-api" },
-    { name = "typing-extensions" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "mypy" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "browser-cookie3", specifier = ">=0.20.1" },
-    { name = "fastmcp", specifier = ">=4.1,<5" },
-    { name = "piazza-api", specifier = ">=0.16,<1" },
-    { name = "typing-extensions", specifier = ">=4.12" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "mypy", specifier = ">=1.15" },
-    { name = "pytest", specifier = ">=8" },
-    { name = "pytest-asyncio", specifier = ">=0.25" },
-    { name = "ruff", specifier = ">=0.9" },
-]
-
-[[package]]
 name = "mcp-types"
 version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1291,6 +1257,40 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/eb/bf/896cc7855413852989d162d9908a774c125322f26f4172713b59ad49da21/piazza_api-0.16.0.tar.gz", hash = "sha256:eff1eca6030abd9665c41919a498500b9b2461f79daae79fc4ec117d01002822", size = 14057, upload-time = "2026-08-10T04:46:48.964Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/36/45c901cb5261e5eb0e5bc85f25cd5cc1dc508244c1fc857746e3bedcc58d/piazza_api-0.16.0-py3-none-any.whl", hash = "sha256:3c1deab797adc3706c3943f2708912a88813172690e3217de41773cf0af12b88", size = 14876, upload-time = "2026-08-10T04:46:47.983Z" },
+]
+
+[[package]]
+name = "piazza-mcp"
+source = { editable = "." }
+dependencies = [
+    { name = "browser-cookie3" },
+    { name = "fastmcp" },
+    { name = "piazza-api" },
+    { name = "typing-extensions" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "browser-cookie3", specifier = ">=0.20.1" },
+    { name = "fastmcp", specifier = ">=4.1,<5" },
+    { name = "piazza-api", specifier = ">=0.16,<1" },
+    { name = "typing-extensions", specifier = ">=4.12" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=1.15" },
+    { name = "pytest", specifier = ">=8" },
+    { name = "pytest-asyncio", specifier = ">=0.25" },
+    { name = "ruff", specifier = ">=0.9" },
 ]
 
 [[package]]

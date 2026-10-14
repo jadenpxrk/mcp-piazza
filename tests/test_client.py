@@ -6,8 +6,8 @@ import pytest
 from fastmcp.exceptions import ToolError
 from piazza_api.exceptions import RequestError
 
-from mcp_piazza.client import LOGIN_CMD, PiazzaClient
-from mcp_piazza.config import Settings
+from piazza_mcp.client import LOGIN_CMD, PiazzaClient
+from piazza_mcp.config import Settings
 
 
 def test_resolve(client: PiazzaClient) -> None:
@@ -86,13 +86,13 @@ def test_throttle_spaces_requests(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
     c._logged_in = True
     clock = [100.0]
     sleeps: list[float] = []
-    monkeypatch.setattr("mcp_piazza.client.time.monotonic", lambda: clock[0])
+    monkeypatch.setattr("piazza_mcp.client.time.monotonic", lambda: clock[0])
 
     def fake_sleep(s: float) -> None:
         sleeps.append(round(s, 3))
         clock[0] += s
 
-    monkeypatch.setattr("mcp_piazza.client.time.sleep", fake_sleep)
+    monkeypatch.setattr("piazza_mcp.client.time.sleep", fake_sleep)
     c.call(lambda: 1)
     clock[0] += 0.2
     c.call(lambda: 2)
@@ -103,7 +103,7 @@ def test_cache_expires(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     c = PiazzaClient(Settings(cookie_file=tmp_path / "c.json", cache_ttl=60))
     c._logged_in = True
     clock = [0.0]
-    monkeypatch.setattr("mcp_piazza.client.time.monotonic", lambda: clock[0])
+    monkeypatch.setattr("piazza_mcp.client.time.monotonic", lambda: clock[0])
     calls: list[int] = []
 
     def fetch() -> int:

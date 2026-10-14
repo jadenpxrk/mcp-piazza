@@ -8,9 +8,9 @@ from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
 from conftest import make_client
-from mcp_piazza.safety import FENCE_END, FENCE_START
-from mcp_piazza.server import build_server
-from mcp_piazza.tools.activity import parse_since
+from piazza_mcp.safety import FENCE_END, FENCE_START
+from piazza_mcp.server import build_server
+from piazza_mcp.tools.activity import parse_since
 
 EXPECTED_TOOLS = {
     "list_courses", "get_course_info", "get_unread_counts", "get_course_stats",
