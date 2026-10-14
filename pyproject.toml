@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "piazza-mcp"
+name = "mcp-piazza"
 dynamic = ["version"]
 description = "Read-only MCP server for Piazza: courses, feeds, search, and full threads"
 readme = "README.md"
@@ -34,7 +34,7 @@ Homepage = "https://github.com/jadenpxrk/piazza-mcp"
 Issues = "https://github.com/jadenpxrk/piazza-mcp/issues"
 
 [project.scripts]
-piazza-mcp = "piazza_mcp.server:main"
+mcp-piazza = "piazza_mcp.server:main"
 
 [tool.hatch.version]
 path = "src/piazza_mcp/__init__.py"

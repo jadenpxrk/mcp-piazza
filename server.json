@@ -10,7 +10,7 @@
   "packages": [
     {
       "registryType": "pypi",
-      "identifier": "piazza-mcp",
+      "identifier": "mcp-piazza",
       "version": "0.1.0",
       "transport": {
         "type": "stdio"
@@ -18,12 +18,12 @@
       "environmentVariables": [
         {
           "name": "PIAZZA_EMAIL",
-          "description": "Piazza account email. Not needed after 'piazza-mcp login'.",
+          "description": "Piazza account email. Not needed after 'mcp-piazza login'.",
           "isRequired": false
         },
         {
           "name": "PIAZZA_PASSWORD",
-          "description": "Piazza account password. Not needed after 'piazza-mcp login'.",
+          "description": "Piazza account password. Not needed after 'mcp-piazza login'.",
           "isRequired": false,
           "isSecret": true
         },

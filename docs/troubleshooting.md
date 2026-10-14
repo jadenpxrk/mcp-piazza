@@ -23,13 +23,13 @@ For example, the post number or course ID can be incorrect.
 ## SSO accounts
 
 Some schools use single sign-on (SSO), and the Piazza account has no password.
-Log in to piazza.com in your browser, then click "Use my browser session" on the login page, or run `piazza-mcp login --browser`.
+Log in to piazza.com in your browser, then click "Use my browser session" on the login page, or run `mcp-piazza login --browser`.
 
 If that does not work, paste the cookie:
 
 1. Open the developer tools. In Chrome and Edge, open Application > Cookies. In Firefox and Safari, open Storage > Cookies.
 2. Select `https://piazza.com` and copy the value of `session_id`.
-3. On the login page, open "Paste a session cookie" and paste the value. Or run `piazza-mcp login --cookie`.
+3. On the login page, open "Paste a session cookie" and paste the value. Or run `mcp-piazza login --cookie`.
 
 The server checks the session with Piazza before it saves it.
 If you get "Piazza did not accept the session cookie", copy a new value after you log in at piazza.com again.
@@ -58,7 +58,7 @@ Piazza then refuses the request.
 
 ## The server does not start in my MCP client
 
-1. Run `uvx piazza-mcp --version` in a terminal. Make sure that it shows a version.
+1. Run `uvx mcp-piazza --version` in a terminal. Make sure that it shows a version.
 2. If the client shows `spawn uvx ENOENT` or "command not found", use the full path to `uvx` in the configuration. Run `which uvx` to find it.
 3. If the client stops the server during start, increase its start timeout. The first `uvx` run downloads the package. In Codex CLI, set `startup_timeout_sec = 60`.
 4. Read the logs of your MCP client. The server writes errors to stderr.

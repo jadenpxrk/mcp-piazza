@@ -20,7 +20,7 @@ from .config import Settings
 log = logging.getLogger("piazza_mcp")
 T = TypeVar("T")
 
-LOGIN_CMD = "piazza-mcp login"
+LOGIN_CMD = "mcp-piazza login"
 FULL_FEED = 999_999  # Piazza returns the whole feed for a large limit, in one request
 RETRY_DELAY = 1.0
 

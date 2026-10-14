@@ -51,7 +51,7 @@ The password is in plain text in the configuration file, so keep the file privat
   "mcpServers": {
     "piazza": {
       "command": "uvx",
-      "args": ["piazza-mcp"],
+      "args": ["mcp-piazza"],
       "env": {
         "PIAZZA_EMAIL": "you@school.edu",
         "PIAZZA_PASSWORD": "your-password"
@@ -66,24 +66,24 @@ The password is in plain text in the configuration file, so keep the file privat
 Give each account its own session file:
 
 ```bash
-PIAZZA_COOKIE_FILE=~/.config/piazza-mcp/ta.json uvx piazza-mcp login
-claude mcp add --env PIAZZA_COOKIE_FILE=$HOME/.config/piazza-mcp/ta.json --transport stdio piazza-ta -- uvx piazza-mcp
+PIAZZA_COOKIE_FILE=~/.config/piazza-mcp/ta.json uvx mcp-piazza login
+claude mcp add --env PIAZZA_COOKIE_FILE=$HOME/.config/piazza-mcp/ta.json --transport stdio piazza-ta -- uvx mcp-piazza
 ```
 
 ## Command line
 
 ```text
-piazza-mcp                                   Run the MCP server on stdio.
-piazza-mcp serve                             Run the MCP server on stdio.
-piazza-mcp serve --transport http            Run the MCP server on http://127.0.0.1:8000/mcp.
-piazza-mcp serve --transport http --port N   Use port N.
-piazza-mcp login                             Open the login page in your browser and wait for the login.
-piazza-mcp login --browser                   Copy the Piazza session from any browser where you are logged in.
-piazza-mcp login --browser chrome            Copy the session from one browser: chrome, arc, brave, edge, firefox, safari, chromium, vivaldi, opera.
-piazza-mcp login --password                  Enter your email and password in the terminal. Uses PIAZZA_EMAIL if it is set.
-piazza-mcp login --cookie                    Paste the session_id cookie from your browser.
-piazza-mcp logout                            Delete the saved session.
-piazza-mcp --version                         Show the version.
+mcp-piazza                                   Run the MCP server on stdio.
+mcp-piazza serve                             Run the MCP server on stdio.
+mcp-piazza serve --transport http            Run the MCP server on http://127.0.0.1:8000/mcp.
+mcp-piazza serve --transport http --port N   Use port N.
+mcp-piazza login                             Open the login page in your browser and wait for the login.
+mcp-piazza login --browser                   Copy the Piazza session from any browser where you are logged in.
+mcp-piazza login --browser chrome            Copy the session from one browser: chrome, arc, brave, edge, firefox, safari, chromium, vivaldi, opera.
+mcp-piazza login --password                  Enter your email and password in the terminal. Uses PIAZZA_EMAIL if it is set.
+mcp-piazza login --cookie                    Paste the session_id cookie from your browser.
+mcp-piazza logout                            Delete the saved session.
+mcp-piazza --version                         Show the version.
 ```
 
 The HTTP transport has no authentication.

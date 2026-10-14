@@ -3,7 +3,7 @@
 <!-- mcp-name: io.github.jadenpxrk/piazza-mcp -->
 
 [![CI](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/piazza-mcp)](https://pypi.org/project/piazza-mcp/)
+[![PyPI](https://img.shields.io/pypi/v/mcp-piazza)](https://pypi.org/project/mcp-piazza/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io) server for [Piazza](https://piazza.com).
@@ -25,16 +25,16 @@ The server only reads data. It cannot post, edit, endorse, or delete.
 2. Log in one time. The command opens a login page in your browser:
 
    ```bash
-   uvx piazza-mcp login
+   uvx mcp-piazza login
    ```
 
    You can also skip this step. If the server has no session, the first tool call opens the same page and shows its link.
 
-3. Add the server to your client. The server command is `uvx` with the argument `piazza-mcp`. For example:
+3. Add the server to your client. The server command is `uvx` with the argument `mcp-piazza`. For example:
 
    ```bash
-   claude mcp add --scope user --transport stdio piazza -- uvx piazza-mcp   # Claude Code
-   codex mcp add piazza -- uvx piazza-mcp                                   # Codex CLI
+   claude mcp add --scope user --transport stdio piazza -- uvx mcp-piazza   # Claude Code
+   codex mcp add piazza -- uvx mcp-piazza                                   # Codex CLI
    ```
 
    See [docs/clients.md](docs/clients.md) for Claude Desktop, Cursor, VS Code, Windsurf, Zed, Gemini CLI, and other clients.
@@ -82,14 +82,14 @@ This server uses [piazza-api](https://github.com/hfaran/piazza-api), which logs 
 
 | Method | How | Use it when |
 |---|---|---|
-| Login page | `piazza-mcp login`, or the link from the first tool call | Most people. The page offers the three methods below. |
-| Browser session | `piazza-mcp login --browser` | You are logged in to piazza.com in Chrome, Arc, Brave, Edge, Firefox, Safari, Chromium, Vivaldi, or Opera. This works with school SSO. |
-| Password | `piazza-mcp login --password` | You want to type your email and password in the terminal. |
-| Session cookie | `piazza-mcp login --cookie` | You want to paste the `session_id` cookie from the browser developer tools. |
+| Login page | `mcp-piazza login`, or the link from the first tool call | Most people. The page offers the three methods below. |
+| Browser session | `mcp-piazza login --browser` | You are logged in to piazza.com in Chrome, Arc, Brave, Edge, Firefox, Safari, Chromium, Vivaldi, or Opera. This works with school SSO. |
+| Password | `mcp-piazza login --password` | You want to type your email and password in the terminal. |
+| Session cookie | `mcp-piazza login --cookie` | You want to paste the `session_id` cookie from the browser developer tools. |
 | Environment variables | `PIAZZA_EMAIL`, `PIAZZA_PASSWORD` | You want automatic login when the session expires. |
 
 All methods save only the session cookies to `~/.config/piazza-mcp/cookies.json` with file mode `600`. They do not save your password.
-When the session expires, the next tool call opens the login page again. `piazza-mcp logout` deletes the session.
+When the session expires, the next tool call opens the login page again. `mcp-piazza logout` deletes the session.
 
 ## Configuration
 

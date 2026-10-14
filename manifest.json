@@ -29,7 +29,7 @@
         "run",
         "--directory",
         "${__dirname}",
-        "piazza-mcp"
+        "mcp-piazza"
       ],
       "env": {
         "PIAZZA_EMAIL": "${user_config.email}",
