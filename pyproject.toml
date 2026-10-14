@@ -1,0 +1,77 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-piazza"
+dynamic = ["version"]
+description = "Read-only MCP server for Piazza: courses, feeds, search, and full threads"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "jadenpxrk" }]
+keywords = ["piazza", "mcp", "claude", "education", "model-context-protocol"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
+]
+dependencies = [
+    "browser-cookie3>=0.20.1",
+    "fastmcp>=4.1,<5",
+    "piazza-api>=0.16,<1",
+    "typing-extensions>=4.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/jadenpxrk/mcp-piazza"
+Issues = "https://github.com/jadenpxrk/mcp-piazza/issues"
+
+[project.scripts]
+mcp-piazza = "mcp_piazza.server:main"
+
+[tool.hatch.version]
+path = "src/mcp_piazza/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_piazza"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.25",
+    "ruff>=0.9",
+    "mypy>=1.15",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"src/mcp_piazza/login.py" = ["E501"]  # the login page CSS
+
+[tool.ruff.lint.isort]
+known-first-party = ["mcp_piazza", "conftest"]

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.jadenpxrk/mcp-piazza",
+  "description": "Read-only Piazza access: activity, search, unread posts, full threads, and course info",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/jadenpxrk/mcp-piazza",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "mcp-piazza",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "PIAZZA_EMAIL",
+          "description": "Piazza account email. Not needed after 'mcp-piazza login'.",
+          "isRequired": false
+        },
+        {
+          "name": "PIAZZA_PASSWORD",
+          "description": "Piazza account password. Not needed after 'mcp-piazza login'.",
+          "isRequired": false,
+          "isSecret": true
+        },
+        {
+          "name": "PIAZZA_COOKIE_FILE",
+          "description": "Path of the saved session file.",
+          "isRequired": false,
+          "default": "~/.config/mcp-piazza/cookies.json"
+        },
+        {
+          "name": "PIAZZA_ANONYMIZE_STUDENTS",
+          "description": "Replace student names with pseudonyms.",
+          "isRequired": false,
+          "default": "false"
+        },
+        {
+          "name": "PIAZZA_FENCE_CONTENT",
+          "description": "Mark post text as untrusted data.",
+          "isRequired": false,
+          "default": "true"
+        },
+        {
+          "name": "PIAZZA_MIN_INTERVAL",
+          "description": "Minimum seconds between Piazza requests.",
+          "isRequired": false,
+          "default": "0.5"
+        },
+        {
+          "name": "PIAZZA_CACHE_TTL",
+          "description": "Seconds to keep feeds and posts in memory.",
+          "isRequired": false,
+          "default": "60"
+        }
+      ]
+    }
+  ]
+}

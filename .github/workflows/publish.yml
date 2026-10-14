@@ -1,0 +1,64 @@
+name: Publish
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write  # PyPI trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked
+      - run: uv run pytest
+      - name: Tag matches version
+        run: test "${GITHUB_REF_NAME#v}" = "$(uv run python -c 'import mcp_piazza; print(mcp_piazza.__version__)')"
+      - run: uv build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  registry:
+    needs: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # MCP registry GitHub OIDC login
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for PyPI
+        run: |
+          for i in $(seq 1 12); do
+            curl -fsS "https://pypi.org/pypi/mcp-piazza/${GITHUB_REF_NAME#v}/json" >/dev/null && exit 0
+            sleep 30
+          done
+          exit 1
+      - name: Install mcp-publisher
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=$(gh release view --repo modelcontextprotocol/registry --json tagName -q .tagName)
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/download/${tag}/mcp-publisher_linux_amd64.tar.gz" | tar xz
+          sudo mv mcp-publisher /usr/local/bin/
+      - run: mcp-publisher login github-oidc
+      - run: mcp-publisher publish
+
+  mcpb:
+    needs: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # attach the bundle to the GitHub release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx -y @anthropic-ai/mcpb pack . mcp-piazza.mcpb
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" mcp-piazza.mcpb --generate-notes

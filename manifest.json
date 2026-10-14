@@ -1,0 +1,160 @@
+{
+  "manifest_version": "0.2",
+  "name": "mcp-piazza",
+  "display_name": "Piazza",
+  "version": "0.1.0",
+  "description": "Read your Piazza courses through an AI assistant: activity, search, unread posts, full threads, course info, and attachments. Read-only.",
+  "long_description": "mcp-piazza gives an MCP client read-only access to your Piazza courses. It finds recent activity across all courses, lists and searches posts, and reads full threads with instructor answers, student answers, and followups as plain text. It runs locally on stdio and uses your own Piazza account. Post text is marked as untrusted data, and student names can be replaced with pseudonyms.",
+  "author": {
+    "name": "jadenpxrk",
+    "url": "https://github.com/jadenpxrk"
+  },
+  "homepage": "https://github.com/jadenpxrk/mcp-piazza",
+  "documentation": "https://github.com/jadenpxrk/mcp-piazza/blob/main/README.md",
+  "support": "https://github.com/jadenpxrk/mcp-piazza/issues",
+  "license": "MIT",
+  "keywords": [
+    "piazza",
+    "education",
+    "course",
+    "forum",
+    "mcp"
+  ],
+  "server": {
+    "type": "python",
+    "entry_point": "src/mcp_piazza/server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "mcp-piazza"
+      ],
+      "env": {
+        "PIAZZA_EMAIL": "${user_config.email}",
+        "PIAZZA_PASSWORD": "${user_config.password}",
+        "PIAZZA_ANONYMIZE_STUDENTS": "${user_config.anonymize_students}",
+        "PIAZZA_KEEP_UNREAD": "${user_config.keep_unread}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "list_courses",
+      "description": "List your courses, terms, roles, and folders"
+    },
+    {
+      "name": "get_course_info",
+      "description": "Course page: description, syllabus, office hours, and staff"
+    },
+    {
+      "name": "get_unread_counts",
+      "description": "Unread posts in each active course"
+    },
+    {
+      "name": "recent_activity",
+      "description": "Posts with new activity since a time, across all courses"
+    },
+    {
+      "name": "list_posts",
+      "description": "Post summaries, filtered by unread, following, unresolved, unanswered, mine, starred, or folder"
+    },
+    {
+      "name": "search_posts",
+      "description": "Search posts in one course or all active courses"
+    },
+    {
+      "name": "get_post",
+      "description": "Read one full thread"
+    },
+    {
+      "name": "get_posts",
+      "description": "Read up to 20 full threads"
+    },
+    {
+      "name": "get_post_history",
+      "description": "Every version of a post, with diffs"
+    },
+    {
+      "name": "list_instructor_notes",
+      "description": "Notes and polls written by instructors"
+    },
+    {
+      "name": "get_attachment",
+      "description": "Open an image or file from a post"
+    },
+    {
+      "name": "get_course_stats",
+      "description": "Course Statistics page data"
+    }
+  ],
+  "user_config": {
+    "email": {
+      "type": "string",
+      "title": "Piazza email",
+      "description": "The email for your Piazza account.",
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "title": "Piazza password",
+      "description": "The password for your Piazza account. Claude Desktop keeps it in your OS keychain.",
+      "sensitive": true,
+      "required": true
+    },
+    "anonymize_students": {
+      "type": "boolean",
+      "title": "Replace student names with pseudonyms",
+      "description": "Show other students as 'Student 3f2a1c' instead of their names. Instructor names stay visible.",
+      "default": false,
+      "required": false
+    },
+    "keep_unread": {
+      "type": "boolean",
+      "title": "Keep posts unread",
+      "description": "Piazza marks a post as read when the assistant reads it. Turn this on to mark unread posts unread again after the assistant reads them.",
+      "default": false,
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.11"
+    }
+  },
+  "prompts": [
+    {
+      "name": "catch_up",
+      "description": "Summarize recent activity",
+      "arguments": [
+        "since"
+      ],
+      "text": "Summarize Piazza activity since ${arguments.since}."
+    },
+    {
+      "name": "before_asking",
+      "description": "Check whether a question was already answered",
+      "arguments": [
+        "course",
+        "question"
+      ],
+      "text": "Check if this was asked in ${arguments.course}: ${arguments.question}"
+    },
+    {
+      "name": "exam_prep",
+      "description": "Collect what was said about an exam or topic",
+      "arguments": [
+        "course",
+        "topic"
+      ],
+      "text": "Collect what was said about ${arguments.topic} in ${arguments.course}."
+    }
+  ]
+}

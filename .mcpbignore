@@ -1,0 +1,10 @@
+# Allowlist: ship only what the server needs at runtime.
+/*
+!/manifest.json
+!/pyproject.toml
+!/uv.lock
+!/LICENSE
+!/README.md
+!/src
+**/__pycache__/
+*.pyc
