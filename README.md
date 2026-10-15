@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/mcp-piazza)](https://pypi.org/project/mcp-piazza/)
+[![Python](https://img.shields.io/pypi/pyversions/mcp-piazza)](https://pypi.org/project/mcp-piazza/)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jadenpxrk/piazza-mcp/badge)](https://scorecard.dev/viewer/?uri=github.com/jadenpxrk/piazza-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io) server for [Piazza](https://piazza.com).
@@ -67,6 +69,18 @@ Every tool accepts a course ID, a course number such as `CSE 12` or `cse12`, or 
 | `exam_prep` | Read all posts about an exam or topic and collect the facts. |
 
 Many clients show prompts as slash commands.
+
+| Skill | Purpose |
+|---|---|
+| `piazza-catch-up` | The `catch_up` steps, for agents that use skills. |
+| `piazza-exam-prep` | The `exam_prep` steps. |
+| `piazza-before-asking` | The `before_asking` steps. |
+
+Skills work in Claude Code, Cursor, Codex, opencode, and other agents. They need the server. To install them:
+
+```bash
+npx skills add jadenpxrk/piazza-mcp
+```
 
 | Resource | Content |
 |---|---|

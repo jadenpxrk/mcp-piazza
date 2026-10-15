@@ -14,14 +14,14 @@ jobs:
     permissions:
       id-token: write  # PyPI trusted publishing
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884  # v10.3.0
       - run: uv sync --locked
       - run: uv run pytest
       - name: Tag matches version
         run: test "${GITHUB_REF_NAME#v}" = "$(uv run python -c 'import piazza_mcp; print(piazza_mcp.__version__)')"
       - run: uv build
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33  # v1.14.2
 
   registry:
     needs: pypi
@@ -29,7 +29,7 @@ jobs:
     permissions:
       id-token: write  # MCP registry GitHub OIDC login
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - name: Wait for PyPI
         run: |
           for i in $(seq 1 12); do
@@ -38,12 +38,9 @@ jobs:
           done
           exit 1
       - name: Install mcp-publisher
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          tag=$(gh release view --repo modelcontextprotocol/registry --json tagName -q .tagName)
-          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/download/${tag}/mcp-publisher_linux_amd64.tar.gz" | tar xz
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz" | tar xz
           sudo mv mcp-publisher /usr/local/bin/
       - run: mcp-publisher login github-oidc
       - run: mcp-publisher publish
@@ -54,11 +51,11 @@ jobs:
     permissions:
       contents: write  # attach the bundle to the GitHub release
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version: "22"
-      - run: npx -y @anthropic-ai/mcpb pack . piazza-mcp.mcpb
+      - run: npx -y @anthropic-ai/mcpb@2.1.2 pack . piazza-mcp.mcpb
       - env:
           GH_TOKEN: ${{ github.token }}
         run: gh release create "$GITHUB_REF_NAME" piazza-mcp.mcpb --generate-notes
