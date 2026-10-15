@@ -229,7 +229,10 @@ class FakeNetwork:
         self.calls.append(("get_post", nr))
         posts = {7: POST, 11: POLL}
         if nr not in posts:
-            raise RequestError("The post you are looking for cannot be found")
+            raise RequestError(
+                f"Could not get post {nr}.\n"
+                'Response: {"result": null, "error": "The post you are looking for cannot be found"}'
+            )
         return copy.deepcopy(posts[nr])
 
     def get_users(self, uids: list[str]) -> list[dict[str, Any]]:

@@ -1,4 +1,5 @@
 import json
+import threading
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -256,8 +257,9 @@ async def test_keep_unread_marks_only_unread_posts_unread_again(tmp_path: Path) 
     async with Client(build_server(client)) as mcp:
         out = await call(mcp, "get_posts", course="abc123", numbers=[7, 11])
     assert [p["number"] for p in out["posts"]] == [7, 11]
-    assert client.restore_thread is not None and not client.restore_thread.daemon  # Python waits for it at exit
-    client.restore_thread.join(5)
+    [thread] = client.restore_threads
+    assert not thread.daemon  # Python waits for it at exit
+    thread.join(5)
     assert [c for c in client.calls if c[0] == "mark_unread"] == [("mark_unread", "cid7")]
 
 
@@ -265,11 +267,20 @@ async def test_keep_unread_skips_cached_posts(tmp_path: Path) -> None:
     client = make_client(tmp_path, keep_unread=True, cache_ttl=60)
     async with Client(build_server(client)) as mcp:
         await call(mcp, "get_posts", course="abc123", numbers=[7])
-        assert client.restore_thread is not None
-        client.restore_thread.join(5)
+        client.restore_threads[0].join(5)
         before = len(client.calls)
         await call(mcp, "get_post", course="abc123", number=7)
     assert not [c for c in client.calls[before:] if c[0] in ("filter_feed", "get_post", "mark_unread")]
+
+
+def test_keep_unread_tracks_every_restore_run(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    client = make_client(tmp_path, keep_unread=True)
+    release = threading.Event()
+    monkeypatch.setattr(client, "_mark_unread", lambda *a: release.wait(5))
+    client.posts("abc123", [7])
+    client.posts("abc123", [7])
+    assert len(client.restore_threads) == 2  # shutdown waits for both runs
+    release.set()
 
 
 async def test_default_never_marks_unread(mcp: Client, client) -> None:

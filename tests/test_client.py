@@ -56,6 +56,7 @@ def test_expired_session_logs_in_again_with_password(tmp_path: Path, monkeypatch
         c.rpc.session.cookies.set("session_id", "new", domain="piazza.com")
 
     monkeypatch.setattr(c.rpc, "user_login", fake_login)
+    monkeypatch.setattr(c, "_session_ok", lambda: False)
     attempts = iter([RequestError("not logged in"), "data"])
 
     def request() -> str:
@@ -69,16 +70,25 @@ def test_expired_session_logs_in_again_with_password(tmp_path: Path, monkeypatch
     assert json.loads(path.read_text()) == {"session_id": "new"}
 
 
-def test_expired_session_without_password_explains_fix(tmp_path: Path) -> None:
+def test_expired_session_without_password_explains_fix(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     path = tmp_path / "cookies.json"
     path.write_text("{}")
     c = PiazzaClient(Settings(cookie_file=path))
+    monkeypatch.setattr(c, "_session_ok", lambda: False)
 
     def request() -> None:
         raise RequestError("not logged in")
 
     with pytest.raises(ToolError, match=f"not logged in.*{LOGIN_CMD}"):
         c.call(request)
+
+
+def test_failed_request_with_a_valid_session_does_not_ask_for_login(client: PiazzaClient) -> None:
+    opened: list[int] = []
+    client.login_page = lambda: str(opened.append(1))
+    [error] = client.posts("abc123", [99])
+    assert str(error) == "Piazza request failed: The post you are looking for cannot be found"
+    assert not opened
 
 
 def test_throttle_spaces_requests(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

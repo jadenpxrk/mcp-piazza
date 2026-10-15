@@ -36,8 +36,8 @@ CI runs all of these on Python 3.11, 3.12, and 3.13.
 ## Rules
 
 - The server is read-only. Do not add tools that change Piazza data. Every tool uses `annotations=READ_ONLY`.
-- The only write is `content.mark_unread` in `PiazzaClient._read_post`. It runs only when `PIAZZA_KEEP_UNREAD=true`, and only on posts that were unread before the server read them.
-- Send all Piazza requests through `PiazzaClient.call` or `PiazzaClient.cached`. They throttle requests, and they log in again and retry one time when a session expires.
+- The only write is `content.mark_unread` in `PiazzaClient._mark_unread`. It runs only when `PIAZZA_KEEP_UNREAD=true`, and only on posts that were unread before the server read them.
+- Send all Piazza requests through `PiazzaClient.call` or `PiazzaClient.cached`. They throttle requests. When a request fails, they check the session, and they log in again and retry one time if it expired.
 - Build the `Network` object inside the function that `call` runs. A new login replaces the session cookies, and the retry must use them.
 - Format all text that course members write with `Formatter`. It applies fencing and pseudonyms. Do not return raw post text.
 - Write logs to stderr only. Stdout carries the MCP protocol.
