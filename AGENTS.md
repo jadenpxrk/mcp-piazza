@@ -18,6 +18,7 @@ src/piazza_mcp/
   prompts.py      MCP prompts
   resources.py    MCP resources
   tools/          courses.py, posts.py, activity.py, files.py; register(mcp, client) adds the tools
+skills/           Agent skills; each one matches a prompt in prompts.py
 tests/            Offline tests; conftest.py has the stub Piazza data
 ```
 
@@ -45,6 +46,8 @@ CI runs all of these on Python 3.11, 3.12, and 3.13.
 - Raise `ToolError` with a message that tells the user what to do.
 - Declare every output key in `models.py`. FastMCP drops keys that the TypedDict does not declare. Import `TypedDict` from `typing_extensions`.
 - `get_attachment` must send cookies only to `https` URLs on `piazza.com`. Keep `check_url` in front of every download.
+- When you change a prompt in `prompts.py`, change the matching skill in `skills/`.
+- Pin GitHub Actions to a commit SHA, with the version in a comment.
 - The login page binds to `127.0.0.1` only and checks the token, `Host`, and `Origin`. Keep all three checks.
 
 ## Add a tool

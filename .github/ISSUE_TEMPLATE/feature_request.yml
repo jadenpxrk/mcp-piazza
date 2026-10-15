@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest a new tool or a change to a tool.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: The server is read-only. Requests for tools that post, edit, or delete are out of scope.
+  - type: textarea
+    id: need
+    attributes:
+      label: Need
+      description: What do you want to ask your assistant? What data does it need from Piazza?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggestion
+      description: The tool or the change that you suggest.

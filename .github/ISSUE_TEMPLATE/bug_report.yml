@@ -1,0 +1,48 @@
+name: Bug report
+description: A tool, the login, or the setup does not work correctly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include post text, names, emails, or cookies from your Piazza account.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What did you do? What did you expect? What occurred?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: The tool call or command, and its arguments.
+      placeholder: |
+        1. Ask "What did I miss this week?"
+        2. The agent calls recent_activity with since="7d".
+        3. The tool returns an error.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The output of `uvx mcp-piazza --version`.
+    validations:
+      required: true
+  - type: input
+    id: client
+    attributes:
+      label: MCP client
+      placeholder: Claude Code, Claude Desktop, Cursor, ...
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS 15, Windows 11, Ubuntu 24.04, ...
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error text or logs
+      description: The server writes logs to stderr. Your client shows them in its MCP log.
+      render: text
