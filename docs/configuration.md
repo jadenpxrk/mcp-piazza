@@ -7,7 +7,7 @@ If a value is not valid, the server stops and shows the variable name.
 |---|---|---|
 | `PIAZZA_EMAIL` | none | Your Piazza account email. |
 | `PIAZZA_PASSWORD` | none | Your Piazza account password. |
-| `PIAZZA_COOKIE_FILE` | `~/.config/piazza-mcp/cookies.json` | A file path. |
+| `PIAZZA_COOKIE_FILE` | `~/.config/mcp-piazza/cookies.json` | A file path. |
 | `PIAZZA_ANONYMIZE_STUDENTS` | `false` | `true`, `false`, `1`, `0`, `yes`, `no`, `on`, `off`. |
 | `PIAZZA_FENCE_CONTENT` | `true` | The same values as `PIAZZA_ANONYMIZE_STUDENTS`. |
 | `PIAZZA_KEEP_UNREAD` | `false` | The same values as `PIAZZA_ANONYMIZE_STUDENTS`. See [Keep posts unread](#keep-posts-unread). |
@@ -66,8 +66,8 @@ The password is in plain text in the configuration file, so keep the file privat
 Give each account its own session file:
 
 ```bash
-PIAZZA_COOKIE_FILE=~/.config/piazza-mcp/ta.json uvx mcp-piazza login
-claude mcp add --env PIAZZA_COOKIE_FILE=$HOME/.config/piazza-mcp/ta.json --transport stdio piazza-ta -- uvx mcp-piazza
+PIAZZA_COOKIE_FILE=~/.config/mcp-piazza/ta.json uvx mcp-piazza login
+claude mcp add --env PIAZZA_COOKIE_FILE=$HOME/.config/mcp-piazza/ta.json --transport stdio piazza-ta -- uvx mcp-piazza
 ```
 
 ## Command line

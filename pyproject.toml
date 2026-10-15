@@ -30,17 +30,17 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jadenpxrk/piazza-mcp"
-Issues = "https://github.com/jadenpxrk/piazza-mcp/issues"
+Homepage = "https://github.com/jadenpxrk/mcp-piazza"
+Issues = "https://github.com/jadenpxrk/mcp-piazza/issues"
 
 [project.scripts]
-mcp-piazza = "piazza_mcp.server:main"
+mcp-piazza = "mcp_piazza.server:main"
 
 [tool.hatch.version]
-path = "src/piazza_mcp/__init__.py"
+path = "src/mcp_piazza/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/piazza_mcp"]
+packages = ["src/mcp_piazza"]
 
 [dependency-groups]
 dev = [
@@ -71,7 +71,7 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 
 [tool.ruff.lint.per-file-ignores]
-"src/piazza_mcp/login.py" = ["E501"]  # the login page CSS
+"src/mcp_piazza/login.py" = ["E501"]  # the login page CSS
 
 [tool.ruff.lint.isort]
-known-first-party = ["piazza_mcp", "conftest"]
+known-first-party = ["mcp_piazza", "conftest"]

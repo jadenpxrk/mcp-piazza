@@ -1,10 +1,10 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.jadenpxrk/piazza-mcp",
+  "name": "io.github.jadenpxrk/mcp-piazza",
   "description": "Read-only Piazza access: activity, search, unread posts, full threads, and course info",
   "version": "0.1.0",
   "repository": {
-    "url": "https://github.com/jadenpxrk/piazza-mcp",
+    "url": "https://github.com/jadenpxrk/mcp-piazza",
     "source": "github"
   },
   "packages": [
@@ -31,7 +31,7 @@
           "name": "PIAZZA_COOKIE_FILE",
           "description": "Path of the saved session file.",
           "isRequired": false,
-          "default": "~/.config/piazza-mcp/cookies.json"
+          "default": "~/.config/mcp-piazza/cookies.json"
         },
         {
           "name": "PIAZZA_ANONYMIZE_STUDENTS",

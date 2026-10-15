@@ -18,7 +18,7 @@ from fastmcp.exceptions import ToolError
 if TYPE_CHECKING:
     from .client import PiazzaClient
 
-log = logging.getLogger("piazza_mcp")
+log = logging.getLogger("mcp_piazza")
 
 BROWSERS = ("chrome", "arc", "brave", "edge", "firefox", "safari", "chromium", "vivaldi", "opera")
 

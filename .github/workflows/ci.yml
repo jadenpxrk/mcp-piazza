@@ -26,7 +26,7 @@ jobs:
       - run: uv run pytest
       - name: Versions match
         run: |
-          v=$(uv run python -c "import piazza_mcp; print(piazza_mcp.__version__)")
+          v=$(uv run python -c "import mcp_piazza; print(mcp_piazza.__version__)")
           test "$(jq -r .version manifest.json)" = "$v"
           test "$(jq -r .version server.json)" = "$v"
           test "$(jq -r '.packages[0].version' server.json)" = "$v"

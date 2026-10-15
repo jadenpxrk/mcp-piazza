@@ -6,7 +6,7 @@ For tool usage, see [docs/tools.md](docs/tools.md).
 ## Layout
 
 ```text
-src/piazza_mcp/
+src/mcp_piazza/
   server.py       Command line (serve, login, logout) and build_server()
   config.py       Settings from environment variables
   client.py       PiazzaClient: login, saved session, throttle, cache, retry, course resolution, requests
@@ -69,6 +69,6 @@ Read fields with `.get()`, because Piazza can leave out any field.
 
 ## Release
 
-1. Change the version in `src/piazza_mcp/__init__.py`, `manifest.json`, and both fields in `server.json`. CI checks that they agree.
+1. Change the version in `src/mcp_piazza/__init__.py`, `manifest.json`, and both fields in `server.json`. CI checks that they agree.
 2. Add an entry to `CHANGELOG.md`.
-3. Push a tag such as `v0.2.0`. The publish workflow publishes to PyPI and the MCP registry, and attaches `piazza-mcp.mcpb` to a GitHub release.
+3. Push a tag such as `v0.2.0`. The publish workflow publishes to PyPI and the MCP registry, and attaches `mcp-piazza.mcpb` to a GitHub release.

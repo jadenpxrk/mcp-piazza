@@ -1,17 +1,17 @@
 {
   "manifest_version": "0.2",
-  "name": "piazza-mcp",
+  "name": "mcp-piazza",
   "display_name": "Piazza",
   "version": "0.1.0",
   "description": "Read your Piazza courses through an AI assistant: activity, search, unread posts, full threads, course info, and attachments. Read-only.",
-  "long_description": "piazza-mcp gives an MCP client read-only access to your Piazza courses. It finds recent activity across all courses, lists and searches posts, and reads full threads with instructor answers, student answers, and followups as plain text. It runs locally on stdio and uses your own Piazza account. Post text is marked as untrusted data, and student names can be replaced with pseudonyms.",
+  "long_description": "mcp-piazza gives an MCP client read-only access to your Piazza courses. It finds recent activity across all courses, lists and searches posts, and reads full threads with instructor answers, student answers, and followups as plain text. It runs locally on stdio and uses your own Piazza account. Post text is marked as untrusted data, and student names can be replaced with pseudonyms.",
   "author": {
     "name": "jadenpxrk",
     "url": "https://github.com/jadenpxrk"
   },
-  "homepage": "https://github.com/jadenpxrk/piazza-mcp",
-  "documentation": "https://github.com/jadenpxrk/piazza-mcp/blob/main/README.md",
-  "support": "https://github.com/jadenpxrk/piazza-mcp/issues",
+  "homepage": "https://github.com/jadenpxrk/mcp-piazza",
+  "documentation": "https://github.com/jadenpxrk/mcp-piazza/blob/main/README.md",
+  "support": "https://github.com/jadenpxrk/mcp-piazza/issues",
   "license": "MIT",
   "keywords": [
     "piazza",
@@ -22,7 +22,7 @@
   ],
   "server": {
     "type": "python",
-    "entry_point": "src/piazza_mcp/server.py",
+    "entry_point": "src/mcp_piazza/server.py",
     "mcp_config": {
       "command": "uv",
       "args": [

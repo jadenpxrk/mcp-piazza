@@ -1,11 +1,11 @@
-# piazza-mcp
+# mcp-piazza
 
-<!-- mcp-name: io.github.jadenpxrk/piazza-mcp -->
+<!-- mcp-name: io.github.jadenpxrk/mcp-piazza -->
 
-[![CI](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/jadenpxrk/piazza-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/jadenpxrk/mcp-piazza/actions/workflows/ci.yml/badge.svg)](https://github.com/jadenpxrk/mcp-piazza/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/mcp-piazza)](https://pypi.org/project/mcp-piazza/)
 [![Python](https://img.shields.io/pypi/pyversions/mcp-piazza)](https://pypi.org/project/mcp-piazza/)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jadenpxrk/piazza-mcp/badge)](https://scorecard.dev/viewer/?uri=github.com/jadenpxrk/piazza-mcp)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/jadenpxrk/mcp-piazza/badge)](https://scorecard.dev/viewer/?uri=github.com/jadenpxrk/mcp-piazza)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io) server for [Piazza](https://piazza.com).
@@ -79,7 +79,7 @@ Many clients show prompts as slash commands.
 Skills work in Claude Code, Cursor, Codex, opencode, and other agents. They need the server. To install them:
 
 ```bash
-npx skills add jadenpxrk/piazza-mcp
+npx skills add jadenpxrk/mcp-piazza
 ```
 
 | Resource | Content |
@@ -102,7 +102,7 @@ This server uses [piazza-api](https://github.com/hfaran/piazza-api), which logs 
 | Session cookie | `mcp-piazza login --cookie` | You want to paste the `session_id` cookie from the browser developer tools. |
 | Environment variables | `PIAZZA_EMAIL`, `PIAZZA_PASSWORD` | You want automatic login when the session expires. |
 
-All methods save only the session cookies to `~/.config/piazza-mcp/cookies.json` with file mode `600`. They do not save your password.
+All methods save only the session cookies to `~/.config/mcp-piazza/cookies.json` with file mode `600`. They do not save your password.
 When the session expires, the next tool call opens the login page again. `mcp-piazza logout` deletes the session.
 
 ## Configuration
@@ -111,7 +111,7 @@ When the session expires, the next tool call opens the login page again. `mcp-pi
 |---|---|---|
 | `PIAZZA_EMAIL` | none | Account email for automatic login. |
 | `PIAZZA_PASSWORD` | none | Account password for automatic login. |
-| `PIAZZA_COOKIE_FILE` | `~/.config/piazza-mcp/cookies.json` | Path of the saved session. |
+| `PIAZZA_COOKIE_FILE` | `~/.config/mcp-piazza/cookies.json` | Path of the saved session. |
 | `PIAZZA_ANONYMIZE_STUDENTS` | `false` | Replace student names with pseudonyms. |
 | `PIAZZA_FENCE_CONTENT` | `true` | Mark post text as untrusted data. |
 | `PIAZZA_KEEP_UNREAD` | `false` | Mark unread posts unread again after the server reads them. |

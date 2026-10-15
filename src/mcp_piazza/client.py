@@ -17,7 +17,7 @@ from piazza_api.rpc import PiazzaRPC
 
 from .config import Settings
 
-log = logging.getLogger("piazza_mcp")
+log = logging.getLogger("mcp_piazza")
 T = TypeVar("T")
 
 LOGIN_CMD = "mcp-piazza login"

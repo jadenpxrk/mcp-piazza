@@ -9,7 +9,7 @@ The project uses [Semantic Versioning](https://semver.org/).
 
 - Read-only tools: `list_courses`, `get_course_info`, `get_unread_counts`, `get_course_stats`, `recent_activity`, `list_posts`, `search_posts`, `list_instructor_notes`, `get_post`, `get_posts`, `get_post_history`, and `get_attachment`.
 - Prompts: `catch_up`, `before_asking`, and `exam_prep`.
-- Agent skills: `piazza-catch-up`, `piazza-before-asking`, and `piazza-exam-prep`. Install them with `npx skills add jadenpxrk/piazza-mcp`.
+- Agent skills: `piazza-catch-up`, `piazza-before-asking`, and `piazza-exam-prep`. Install them with `npx skills add jadenpxrk/mcp-piazza`.
 - Resources: `piazza://courses` and `piazza://courses/{course_id}/posts/{number}`.
 - Typed output schemas for all tools that return data.
 - Course lookup by ID, course number, or part of the name, with the active term first.
