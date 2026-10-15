@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-DEFAULT_COOKIE_FILE = "~/.config/piazza-mcp/cookies.json"
+DEFAULT_COOKIE_FILE = "~/.config/mcp-piazza/cookies.json"
 
 _TRUE = {"1", "true", "yes", "on"}
 _FALSE = {"0", "false", "no", "off", ""}

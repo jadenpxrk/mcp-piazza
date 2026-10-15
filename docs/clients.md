@@ -1,6 +1,6 @@
 # Client setup
 
-piazza-mcp works with every MCP client that supports local stdio servers.
+mcp-piazza works with every MCP client that supports local stdio servers.
 The server command is `uvx` with the argument `mcp-piazza`.
 You do not need credentials in the configuration. If the server has no session, the first tool call opens a login page.
 
@@ -35,7 +35,7 @@ Add this entry to the file in the table:
 
 | Client | File | Notes |
 |---|---|---|
-| Claude Desktop | macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`. Windows: `%APPDATA%\Claude\claude_desktop_config.json`. | Use the full path to `uvx`. Restart the app after the change. You can also install `piazza-mcp.mcpb` from the [latest release](https://github.com/jadenpxrk/piazza-mcp/releases/latest). |
+| Claude Desktop | macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`. Windows: `%APPDATA%\Claude\claude_desktop_config.json`. | Use the full path to `uvx`. Restart the app after the change. You can also install `mcp-piazza.mcpb` from the [latest release](https://github.com/jadenpxrk/mcp-piazza/releases/latest). |
 | Cursor | `~/.cursor/mcp.json`, or `.cursor/mcp.json` in a project | |
 | Windsurf | `~/.config/devin/mcp_config.json` (Devin Local), or `~/.codeium/windsurf/mcp_config.json` (Cascade) | |
 | Cline | MCP Servers > Configure > Configure MCP Servers | To skip approval prompts, add tool names to `autoApprove`. |

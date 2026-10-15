@@ -1,8 +1,8 @@
 import pytest
 
-from piazza_mcp.config import Settings
-from piazza_mcp.safety import FENCE_END, FENCE_START, fence, fence_inline, pseudonym
-from piazza_mcp.text import to_text
+from mcp_piazza.config import Settings
+from mcp_piazza.safety import FENCE_END, FENCE_START, fence, fence_inline, pseudonym
+from mcp_piazza.text import to_text
 
 
 def test_html_to_text() -> None:

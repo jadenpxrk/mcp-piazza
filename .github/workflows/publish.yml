@@ -19,7 +19,7 @@ jobs:
       - run: uv sync --locked
       - run: uv run pytest
       - name: Tag matches version
-        run: test "${GITHUB_REF_NAME#v}" = "$(uv run python -c 'import piazza_mcp; print(piazza_mcp.__version__)')"
+        run: test "${GITHUB_REF_NAME#v}" = "$(uv run python -c 'import mcp_piazza; print(mcp_piazza.__version__)')"
       - run: uv build
       - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33  # v1.14.2
 
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version: "22"
-      - run: npx -y @anthropic-ai/mcpb@2.1.2 pack . piazza-mcp.mcpb
+      - run: npx -y @anthropic-ai/mcpb@2.1.2 pack . mcp-piazza.mcpb
       - env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" piazza-mcp.mcpb --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" mcp-piazza.mcpb --generate-notes

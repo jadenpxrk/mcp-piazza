@@ -5,13 +5,13 @@ Bug reports, feature requests, and pull requests are welcome.
 ## Set up
 
 ```bash
-git clone https://github.com/jadenpxrk/piazza-mcp
-cd piazza-mcp
+git clone https://github.com/jadenpxrk/mcp-piazza
+cd mcp-piazza
 uv sync
 uv run pytest
 ```
 
-To use your local copy in a client, set the server command to `uv` and the arguments to `run --directory /path/to/piazza-mcp mcp-piazza`.
+To use your local copy in a client, set the server command to `uv` and the arguments to `run --directory /path/to/mcp-piazza mcp-piazza`.
 
 ## Rules
 
