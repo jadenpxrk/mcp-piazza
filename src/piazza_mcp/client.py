@@ -25,6 +25,16 @@ FULL_FEED = 999_999  # Piazza returns the whole feed for a large limit, in one r
 RETRY_DELAY = 1.0
 
 
+def piazza_reason(e: Exception) -> str:
+    """Piazza's own error message, without the raw response that piazza-api adds."""
+    text = str(e)
+    try:
+        reason = json.loads(text.partition("Response: ")[2]).get("error")
+    except (ValueError, AttributeError):
+        reason = None
+    return str(reason or text.splitlines()[0] if text else type(e).__name__)
+
+
 class PiazzaClient:
     """One Piazza session for the process. Every Network shares the RPC session, so a new login updates all of them."""
 
@@ -39,7 +49,7 @@ class PiazzaClient:
         self._status: dict[str, Any] | None = None
         self._cache: dict[Hashable, tuple[float, Any]] = {}
         self._users: dict[str, dict[str, Any]] = {}
-        self.restore_thread: threading.Thread | None = None  # the last background "mark unread" run
+        self.restore_threads: list[threading.Thread] = []  # background "mark unread" runs
         self.login_page: Callable[[], str] | None = None  # starts the local login page and returns its URL
 
     # Authentication
@@ -116,9 +126,9 @@ class PiazzaClient:
             self._last_request = time.monotonic()
 
     def call(self, fn: Callable[[], T]) -> T:
-        """Run one Piazza request. If it fails, log in again and retry once.
+        """Run one Piazza request. If it fails and the session expired, log in again and retry once.
 
-        An expired session looks like any other error, so every failure gets one retry.
+        An expired session looks like any other error, so a failure first checks the session.
         """
         with self._lock:
             if not self._logged_in:
@@ -127,21 +137,31 @@ class PiazzaClient:
             self._throttle()
             return fn()
         except (RequestError, ValueError) as e:  # ValueError: the reply was not JSON
-            log.warning("Piazza request failed (%s); logging in again", e)
             first_error = e
+        if self._session_ok():
+            raise ToolError(f"Piazza request failed: {piazza_reason(first_error)}") from first_error
+        log.warning("Piazza request failed (%s); logging in again", first_error)
         try:
             with self._lock:
                 self._login(use_saved=False)
         except ToolError as e:
             raise ToolError(
-                self.login_help(f"Piazza request failed: {first_error}. The session probably expired.")
+                self.login_help(f"Piazza request failed: {piazza_reason(first_error)}. The session probably expired.")
             ) from e
         time.sleep(RETRY_DELAY)
         try:
             self._throttle()
             return fn()
         except (RequestError, ValueError) as e:
-            raise ToolError(f"Piazza request failed: {e}") from e
+            raise ToolError(f"Piazza request failed: {piazza_reason(e)}") from e
+
+    def _session_ok(self) -> bool:
+        try:
+            self._throttle()
+            self.piazza.get_user_status()
+        except (RequestError, ValueError):
+            return False
+        return True
 
     def cached(self, key: Hashable, fn: Callable[[], T]) -> T:
         ttl = self.settings.cache_ttl
@@ -253,8 +273,9 @@ class PiazzaClient:
         if restore:
             # Not a daemon thread: Python waits for it at exit, so a client that closes right after a read
             # does not leave these posts marked read.
-            self.restore_thread = threading.Thread(target=self._mark_unread, args=(nid, restore))
-            self.restore_thread.start()
+            thread = threading.Thread(target=self._mark_unread, args=(nid, restore))
+            thread.start()
+            self.restore_threads = [t for t in self.restore_threads if t.is_alive()] + [thread]
         return out
 
     def _mark_unread(self, nid: str, posts: list[tuple[int, str]]) -> None:

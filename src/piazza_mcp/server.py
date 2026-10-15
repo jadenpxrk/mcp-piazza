@@ -6,6 +6,7 @@ import logging
 import os
 import signal
 import sys
+import time
 
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
@@ -94,8 +95,9 @@ def main(argv: list[str] | None = None) -> None:
 
     def on_sigterm(*_: object) -> None:
         # Let background "mark unread" requests finish. Then exit at once: a normal exit waits for the stdin thread.
-        if client.restore_thread:
-            client.restore_thread.join(RESTORE_WAIT)
+        deadline = time.monotonic() + RESTORE_WAIT
+        for thread in client.restore_threads:
+            thread.join(max(0.0, deadline - time.monotonic()))
         os._exit(0)
 
     signal.signal(signal.SIGTERM, on_sigterm)
