@@ -23,6 +23,11 @@ log = logging.getLogger("mcp_piazza")
 BROWSERS = ("chrome", "arc", "brave", "edge", "firefox", "safari", "chromium", "vivaldi", "opera")
 
 
+def _is_piazza(domain: str | None) -> bool:
+    host = (domain or "").lstrip(".")
+    return host == "piazza.com" or host.endswith(".piazza.com")
+
+
 def browser_cookie_sets(browser: str | None = None) -> tuple[list[tuple[str, dict[str, str]]], list[str]]:
     """Return the piazza.com cookies of each browser that has a Piazza session, and the errors for the others."""
     import browser_cookie3  # imported here because it is slow to import
@@ -35,7 +40,7 @@ def browser_cookie_sets(browser: str | None = None) -> tuple[list[tuple[str, dic
         except Exception as e:  # browser_cookie3 raises many types: missing profile, keychain refusal, locked DB
             errors.append(f"{name}: {e}")
             continue
-        cookies = {c.name: c.value for c in jar if (c.domain or "").lstrip(".").endswith("piazza.com") and c.value}
+        cookies = {c.name: c.value for c in jar if _is_piazza(c.domain) and c.value}
         if cookies.get("session_id"):
             found.append((name, cookies))
     return found, errors
