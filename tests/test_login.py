@@ -59,6 +59,7 @@ def test_browser_login_uses_the_first_valid_session(tmp_path: Path, fake_browser
         Cookie("session_id", "good"),
         Cookie("other", "x"),
         Cookie("session_id", "no", "evil.com"),
+        Cookie("tracker", "no", ".notpiazza.com"),
     ]
     c = make_client(tmp_path, accepted={"good"})
     assert browser_login(c) == "Logged in as Jae with the firefox session."
